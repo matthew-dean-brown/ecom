@@ -1,17 +1,24 @@
-const getProducts = (req,res)=>{
-    res.send('Hey There')
+import { getProductsDb, getProductDb, addProductDb, deleteProductDb,updateProductDb} from "../model/productsDb.js"
+
+const getProducts = async(req,res)=>{
+    res.send(await getProductsDb())
 }
-const getProduct =(req,res)=>{
-    res.send('Hey There Single')
+const getProduct = async(req,res)=>{
+    const id = req.params.id
+    res.send(await getProductDb(id))
 }
-const addProduct = (req,res)=>{
-    res.send('Item added')
+const addProduct = async(req,res)=>{
+    const product = req.body.product
+    res.send(await addProductDb(product),{message: 'Item Added'})
 }
-const deleteProduct = (req,res)=>{
-    res.send('Item deleted')
+const deleteProduct = async(req,res)=>{
+    const id = req.params.id
+    res.send(await deleteProductDb(id),{message: 'Item removes succesfully'})
 }
-const editProduct = (req,res)=>{
-    res.send('Item updated')
+const updateProduct = async(req,res)=>{
+    const id = req.params.id
+    const product = req.body.product
+    res.send(await updateProductDb(id,product),{message: 'Item updated'})
 }
 
-export {getProducts, getProduct,addProduct,deleteProduct,editProduct}
+export {getProducts, getProduct,addProduct,deleteProduct,updateProduct}
